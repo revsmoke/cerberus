@@ -67,7 +67,7 @@ The mythological Cerberus analogy is particularly apt - not just a creature with
 
 ### Cross-Model Communication
 - Models can query each other using the `ask_model` function
-- Supported models: `claude-3-7-sonnet-20250219`, `grok-beta`, and `gpt-4o`
+- Supported models: `claude-4-opus-20250606`, `grok-3-beta`, and `o4-mini`
 - Communication is color-coded in the UI to distinguish between:
   - User messages (blue)
   - Direct model responses to users (model-specific colors)
@@ -165,7 +165,7 @@ variables.models = {
     claude: {
         apiKey: "API_KEY_2",
         baseURL: "https://api.anthropic.com/v1/messages",
-        defaultModel: "claude-3-7-sonnet-20250219",
+        defaultModel: "claude-4-opus-20250606",
         headers: {
             "anthropic-version": "2023-06-01",
             "content-type": "application/json",
@@ -174,8 +174,8 @@ variables.models = {
     },
     gpt: {
         apiKey: "API_KEY_3",
-        baseURL: "https://api.openai.com/v1/chat/completions",
-        defaultModel: "gpt-4o",
+        baseURL: "https://api.openai.com/v1/responses",
+        defaultModel: "o4-mini",
         headers: {
             "content-type": "application/json",
             "Authorization": "Bearer API_KEY_3"
@@ -183,8 +183,8 @@ variables.models = {
     },
     grok: {
         apiKey: "API_KEY_1",
-        baseURL: "https://api.x.ai/v1/chat/completions",
-        defaultModel: "grok-beta",
+        baseURL: "https://api.x.ai/v2/chat/completions",
+        defaultModel: "grok-3-beta",
         headers: {
             "content-type": "application/json",
             "Authorization": "Bearer API_KEY_1"

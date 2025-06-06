@@ -5,9 +5,9 @@ component output="false" access="remote" {
     variables.models = {
         grok: {
             handle: 'grok',
-            name: 'grok-beta', // Updated from 'Grok 3' to 'grok-beta'
+            name: 'grok-3-beta', // Updated to Grok 3
             api_key: 'API_KEY_1',
-            base_url: 'https://api.x.ai/v1',
+            base_url: 'https://api.x.ai/v2',
             endpoint: '/chat/completions',
             api_type: 'openai',
             max_tokens: 1024,
@@ -15,7 +15,7 @@ component output="false" access="remote" {
         },
         claude: {
             handle: 'claude',
-            name: 'claude-3-7-sonnet-20250219', // Updated from 'Claude 3.7 Sonnet'
+            name: 'claude-4-opus-20250606', // Updated to Claude 4 Opus
             api_key: 'API_KEY_2',
             base_url: 'https://api.anthropic.com/v1',
             endpoint: '/messages',
@@ -25,10 +25,10 @@ component output="false" access="remote" {
         },
         openai: {
             handle: 'gpt',
-            name: 'gpt-4o', // Updated from 'OpenAI'
+            name: 'o4-mini', // Using latest OpenAI reasoning model
             api_key: 'API_KEY_3',
             base_url: 'https://api.openai.com/v1',
-            endpoint: '/chat/completions',
+            endpoint: '/responses',
             api_type: 'openai',
             max_tokens: 1024,
             temperature: 0.7
@@ -223,7 +223,7 @@ remote function sendMessage(
                 "model_name": { 
                     "type": "string", 
                     "description": "The name of the model to ask",
-                    "enum": ["grok-beta", "claude-3-7-sonnet-20250219", "gpt-4o"]
+                    "enum": ["grok-3-beta", "claude-4-opus-20250606", "o4-mini"]
                 }
             },
             "required": ["query", "model_name"]
@@ -762,6 +762,26 @@ private void function saveMessageToHistory(
             default:
                 return "application/octet-stream";
         }
+    }
+
+    /**
+     * Minimal Agent2Agent endpoint.
+     * Accepts JSON payload with fields `model` and `message` and
+     * returns the model response. This is a simplified demonstration
+     * of the A2A protocol for agent communication.
+     */
+    remote function a2a() returnFormat="json" {
+        var raw = toString(getPageContext().getRequest().getInputStream());
+        var data = isJSON(raw) ? deserializeJSON(raw) : {};
+        if (!structKeyExists(data, "model") || !structKeyExists(data, "message")) {
+            cfheader(statuscode=400, statustext="Bad Request");
+            return {error: "Missing model or message"};
+        }
+        var result = sendMessage(
+            message = data.message,
+            model = data.model
+        );
+        return result;
     }
 
 }

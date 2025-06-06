@@ -2,9 +2,9 @@
 
 A ColdFusion-based application that enables multiple AI models to work together as a cohesive team, providing richer, more nuanced responses than any single model could offer alone. Cerberus currently integrates:
 
-- Claude 3.7 Sonnet (Anthropic)
-- GPT-4o (OpenAI)
-- Grok-beta (X.AI)
+- Claude 4 Opus (Anthropic)
+- o4-mini (OpenAI)
+- Grok 3 Beta (X.AI)
 
 ## Vision!
 

@@ -101,15 +101,15 @@
     <h1>Cerberus Multi-AI Chat App</h1>
     <div class="chat-container">
         <div class="model-section" id="grok-section">
-            <h2>Grok 3</h2>
+            <h2>Grok 3 Beta</h2>
             <div class="conversation" id="grok-conversation"></div>
         </div>
         <div class="model-section" id="claude-section">
-            <h2>Claude 3.7 Sonnet</h2>
+            <h2>Claude Opus 4</h2>
             <div class="conversation" id="claude-conversation"></div>
         </div>
         <div class="model-section" id="openai-section">
-            <h2>OpenAI</h2>
+            <h2>OpenAI (o4-mini)</h2>
             <div class="conversation" id="openai-conversation"></div>
         </div>
     </div>
@@ -123,7 +123,7 @@
     // **1. Model Definitions**
     const models = {
         grok: {
-            name: 'grok-beta',
+            name: 'grok-3-beta',
             api_key: 'API_KEY_1',
             base_url: '/cerberus/AiProxyCFC.cfc',
             endpoint: '',
@@ -131,7 +131,7 @@
             model_provider: 'grok'
         },
         claude: {
-            name: 'claude-3-7-sonnet-20250219',
+            name: 'claude-opus-4-20250514',
             api_key: 'API_KEY_2',
             base_url: '/cerberus/AiProxyCFC.cfc',
             endpoint: '',
@@ -139,7 +139,7 @@
             model_provider: 'claude'
         },
         openai: {
-            name: 'gpt-4o',
+            name: 'o4-mini',
             api_key: 'API_KEY_3',
             base_url: '/cerberus/AiProxyCFC.cfc',
             endpoint: '',
@@ -150,9 +150,9 @@
 
     // **2. Conversation Histories**
     const conversations = {
-        grok: [{ 
-            role: 'system', 
-            content: `You are Grok 3, developed by xAI. This is a multi-AI chat interface where each message is directed to a specific AI. 
+        grok: [{
+            role: 'system',
+            content: `You are Grok 3 Beta, developed by xAI. This is a multi-AI chat interface where each message is directed to a specific AI.
 
 IMPORTANT: This interface prefixes messages with "Grok:" automatically when they are directed to you, so you should always respond directly to the user's query without mentioning the prefix.
 
@@ -162,15 +162,15 @@ FUNCTION CALLING INSTRUCTIONS:
 When you need to query another AI model, use the ask_model function. You can call this function with ONE of the following formats:
 
 1. PREFERRED METHOD - Use proper function calling:
-   ask_model({ query: "What is your opinion on X?", model_name: "claude-3-7-sonnet-20250219" })
+   ask_model({ query: "What is your opinion on X?", model_name: "claude-opus-4-20250514" })
 
 2. ALTERNATE METHOD - Use XML tags:
-   <ask_model>{ "query": "What is your question?", "model_name": "claude-3-7-sonnet-20250219" }</ask_model>
+   <ask_model>{ "query": "What is your question?", "model_name": "claude-opus-4-20250514" }</ask_model>
 
 Available models are:
-- "grok-beta" (yourself)
-- "claude-3-7-sonnet-20250219" (Claude)
-- "gpt-4o" (GPT)
+- "grok-3-beta" (yourself)
+- "claude-opus-4-20250514" (Claude)
+- "o4-mini" (GPT)
 
 IMPORTANT RULES TO PREVENT INFINITE LOOPS:
 1. When a query comes from another model via ask_model, respond directly and completely to their question. DO NOT USE THE ASK_MODEL FUNCTION IN YOUR RESPONSE TO ANOTHER MODEL'S QUERY.
@@ -179,9 +179,9 @@ IMPORTANT RULES TO PREVENT INFINITE LOOPS:
 
 3. Make sure to format function calls EXACTLY as shown, with proper JSON syntax and quotes.`
         }],
-        claude: [{ 
-            role: 'system', 
-            content: `You are Claude 3.7 Sonnet, developed by Anthropic. This is a multi-AI chat interface.
+        claude: [{
+            role: 'system',
+            content: `You are Claude Opus 4, developed by Anthropic. This is a multi-AI chat interface.
 
 IMPORTANT INSTRUCTIONS FOR CLAUDE:
 
@@ -199,9 +199,9 @@ IMPORTANT INSTRUCTIONS FOR CLAUDE:
 5. When analyzing or responding to another model's output, NEVER suggest using ask_model again. Just analyze what was provided.
 
 6. Available models:
-   - "grok-beta" (Grok)
-   - "claude-3-7-sonnet-20250219" (yourself)
-   - "gpt-4o" (GPT)
+   - "grok-3-beta" (Grok)
+  - "claude-opus-4-20250514" (yourself)
+   - "o4-mini" (GPT)
 
 EXAMPLE OF CORRECT BEHAVIOR:
 ✓ Question: "What is dark matter?"
@@ -217,9 +217,9 @@ EXAMPLE OF CORRECT BEHAVIOR:
 ✓ Good response: [Analyze the content directly WITHOUT suggesting to ask other models]
 `
         }],
-        openai: [{ 
-            role: 'system', 
-            content: `You are GPT-4o, developed by OpenAI. This is a multi-AI chat interface.
+        openai: [{
+            role: 'system',
+            content: `You are o4-mini, developed by OpenAI. This is a multi-AI chat interface.
 
 IMPORTANT INSTRUCTIONS FOR GPT:
 
@@ -237,9 +237,9 @@ IMPORTANT INSTRUCTIONS FOR GPT:
 5. When analyzing or responding to another model's output, NEVER suggest using ask_model again. Just analyze what was provided.
 
 6. Available models:
-   - "grok-beta" (Grok)
-   - "claude-3-7-sonnet-20250219" (Claude)
-   - "gpt-4o" (yourself)
+   - "grok-3-beta" (Grok)
+  - "claude-opus-4-20250514" (Claude)
+   - "o4-mini" (yourself)
 
 EXAMPLE OF CORRECT BEHAVIOR:
 ✓ Question: "What is dark matter?"
@@ -265,7 +265,7 @@ EXAMPLE OF CORRECT BEHAVIOR:
             type: 'object',
             properties: {
                 query: { type: 'string', description: 'The question to ask' },
-                model_name: { type: 'string', description: 'The name of the model to ask', enum: ['grok-beta', 'claude-3-7-sonnet-20250219', 'gpt-4o'] }
+                model_name: { type: 'string', description: 'The name of the model to ask', enum: ['grok-3-beta', 'claude-opus-4-20250514', 'o4-mini'] }
             },
             required: ['query', 'model_name']
         }
@@ -567,13 +567,13 @@ EXAMPLE OF CORRECT BEHAVIOR:
             
             // Create a mapping between model keys and API model names
             const modelNameMapping = {
-                'grok': 'grok-beta', 
-                'claude': 'claude-3-7-sonnet-20250219', 
-                'openai': 'gpt-4o'
+                'grok': 'grok-3-beta', 
+                'claude': 'claude-opus-4-20250514',
+                'openai': 'o4-mini'
             };
             
             // Exclude current model from enum to prevent self-querying
-            const filteredEnum = ['grok-beta', 'claude-3-7-sonnet-20250219', 'gpt-4o'].filter(name => name !== model.name);
+            const filteredEnum = ['grok-3-beta', 'claude-opus-4-20250514', 'o4-mini'].filter(name => name !== model.name);
             const customAskModelFunction = {
                 name: 'ask_model',
                 description: 'Ask a question to another AI model',
@@ -712,9 +712,9 @@ EXAMPLE OF CORRECT BEHAVIOR:
                         // Format in a way the model clearly sees it as an external response
                         // For Claude, make sure to use the "Claude:" prefix so it knows to respond
                         const modelDisplayName = 
-                            function_args.model_name === 'grok-beta' ? 'Grok' :
-                            function_args.model_name === 'claude-3-7-sonnet-20250219' ? 'Claude' :
-                            function_args.model_name === 'gpt-4o' ? 'GPT' : function_args.model_name;
+                            function_args.model_name === 'grok-3-beta' ? 'Grok' :
+                            function_args.model_name === 'claude-opus-4-20250514' ? 'Claude' :
+                            function_args.model_name === 'o4-mini' ? 'GPT' : function_args.model_name;
                            
                         // Extract the latest user message to check for recursive patterns
                         const latestUserMessage = [...conversations[modelKey]].reverse()
@@ -787,9 +787,9 @@ EXAMPLE OF CORRECT BEHAVIOR:
                 
                 // Add user prompt to force the model to address the response directly
                 const modelDisplayName = 
-                    function_args.model_name === 'grok-beta' ? 'Grok' :
-                    function_args.model_name === 'claude-3-7-sonnet-20250219' ? 'Claude' :
-                    function_args.model_name === 'gpt-4o' ? 'GPT' : function_args.model_name;
+                    function_args.model_name === 'grok-3-beta' ? 'Grok' :
+                    function_args.model_name === 'claude-opus-4-20250514' ? 'Claude' :
+                    function_args.model_name === 'o4-mini' ? 'GPT' : function_args.model_name;
                     
                 // Extract the latest user message to check for recursive patterns
                 const latestUserMessage = [...conversations[modelKey]].reverse()
@@ -865,10 +865,10 @@ EXAMPLE OF CORRECT BEHAVIOR:
             // Find the matching model key - handle both display names and API names
             let targetModelKey;
             
-            // First try direct match with model name (API format like 'grok-beta')
+            // First try direct match with model name (API format like 'grok-3-beta')
             targetModelKey = Object.keys(models).find(key => models[key].name === model_name);
             
-            // If not found, try to match based on partial name (e.g. if 'grok' was specified instead of 'grok-beta')
+            // If not found, try to match based on partial name (e.g. if 'grok' was specified instead of 'grok-3-beta')
             if (!targetModelKey) {
                 const modelLower = model_name.toLowerCase();
                 if (modelLower.includes('grok')) {
@@ -910,7 +910,7 @@ You are being queried by ${sourceModelDisplay} through a function call. Keep you
                 } else if (targetModelKey === 'openai') {
                     tempConversation.push({ 
                         role: 'system', 
-                        content: `You are GPT-4o, an AI assistant created by OpenAI. ${systemInstruction} 
+                        content: `You are o4-mini, an AI assistant created by OpenAI. ${systemInstruction}
                         
 You are being queried by ${sourceModelDisplay} through a function call. Keep your answers clear, informative, and to the point. DO NOT ask follow-up questions.` 
                     });
@@ -1146,7 +1146,7 @@ You are being queried by ${sourceModelDisplay} through a function call. Keep you
                     function_name: 'ask_model',
                     function_args: {
                         query: "The system couldn't properly parse your function call. Please respond to this generic query instead.",
-                        model_name: "claude-3-7-sonnet-20250219" // Default to Claude as the safest option
+                        model_name: "claude-opus-4-20250514" // Default to Claude as the safest option
                     }
                 };
             }
@@ -1202,11 +1202,11 @@ You are being queried by ${sourceModelDisplay} through a function call. Keep you
                                 // Map the model name to its API name
                                 let targetModelName;
                                 if (modelName.toLowerCase() === 'grok') {
-                                    targetModelName = 'grok-beta';
+                                    targetModelName = 'grok-3-beta';
                                 } else if (modelName.toLowerCase() === 'gpt' || modelName.toLowerCase() === 'openai') {
-                                    targetModelName = 'gpt-4o';
+                                    targetModelName = 'o4-mini';
                                 } else if (modelName.toLowerCase() === 'claude') {
-                                    targetModelName = 'claude-3-7-sonnet-20250219';
+                                    targetModelName = 'claude-opus-4-20250514';
                                 }
                                 
                                 if (targetModelName) {
@@ -1235,11 +1235,11 @@ You are being queried by ${sourceModelDisplay} through a function call. Keep you
                                 // Map the model name to its API name
                                 let targetModelName;
                                 if (modelName.toLowerCase() === 'grok') {
-                                    targetModelName = 'grok-beta';
+                                    targetModelName = 'grok-3-beta';
                                 } else if (modelName.toLowerCase() === 'gpt' || modelName.toLowerCase() === 'openai') {
-                                    targetModelName = 'gpt-4o';
+                                    targetModelName = 'o4-mini';
                                 } else if (modelName.toLowerCase() === 'claude') {
-                                    targetModelName = 'claude-3-7-sonnet-20250219';
+                                    targetModelName = 'claude-opus-4-20250514';
                                 }
                                 
                                 if (targetModelName) {
@@ -1292,16 +1292,16 @@ You are being queried by ${sourceModelDisplay} through a function call. Keep you
             // Check response note for auto-detected intent
             if (response.note && response.note.includes("mentioned asking another model")) {
                 // Extract a potential model name from the response text
-                let targetModelName = 'gpt-4o'; // Default to GPT
+                let targetModelName = 'o4-mini'; // Default to GPT
                 
                 if (response.content && Array.isArray(response.content)) {
                     for (const item of response.content) {
                         if (item.type === 'text' && item.text) {
                             if (item.text.match(/grok/i)) {
-                                targetModelName = 'grok-beta';
+                                targetModelName = 'grok-3-beta';
                                 break;
                             } else if (item.text.match(/claude/i)) {
-                                targetModelName = 'claude-3-7-sonnet-20250219';
+                                targetModelName = 'claude-opus-4-20250514';
                                 break;
                             }
                         }
@@ -1343,7 +1343,7 @@ You are being queried by ${sourceModelDisplay} through a function call. Keep you
                 function_name: 'ask_model',
                 function_args: {
                     query: "The system detected an intent to ask another model but couldn't determine the specific question. Please provide your perspective on this topic.",
-                    model_name: 'gpt-4o' // Default to GPT as the safest option
+                    model_name: 'o4-mini' // Default to GPT as the safest option
                 }
             };
         }

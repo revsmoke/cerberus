@@ -34,7 +34,7 @@
 
     <!--- 
         Equivalent of the Flask /chat POST endpoint:
-        Reads JSON input, calls OpenAI's Chat Completion, and returns JSON.
+        Reads JSON input, calls OpenAI's Chat Completions API, and returns JSON.
      --->
     <cffunction 
         name="chat" 
@@ -76,9 +76,9 @@
                 }
             }
 
-            // Prepare the data for the Chat Completion endpoint
+            // Prepare the data for the Chat Completions API
             var payload = {
-                "model"    = "gpt-4o",
+                "model"    = "o4-mini",
                 "messages" = messages
             };
 

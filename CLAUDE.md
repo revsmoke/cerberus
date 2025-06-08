@@ -2,9 +2,9 @@
 
 ## Overview
 Cerberus is a three-headed chat application that allows users to interact with multiple AI models simultaneously:
-- Claude 3.7 Sonnet (Anthropic)
-- GPT-4o (OpenAI)
-- Grok-beta (X.AI)
+- Claude Opus 4 (Anthropic)
+- o4-mini (OpenAI)
+- Grok 3 Beta (X.AI)
 
 The application supports side-by-side comparison of model responses as well as cross-model communication, with models able to query each other for information and analysis.
 
@@ -67,7 +67,7 @@ The mythological Cerberus analogy is particularly apt - not just a creature with
 
 ### Cross-Model Communication
 - Models can query each other using the `ask_model` function
-- Supported models: `claude-4-opus-20250606`, `grok-3-beta`, and `o4-mini`
+- Supported models: `claude-opus-4-20250514`, `grok-3-beta`, and `o4-mini`
 - Communication is color-coded in the UI to distinguish between:
   - User messages (blue)
   - Direct model responses to users (model-specific colors)
@@ -165,7 +165,7 @@ variables.models = {
     claude: {
         apiKey: "API_KEY_2",
         baseURL: "https://api.anthropic.com/v1/messages",
-        defaultModel: "claude-4-opus-20250606",
+        defaultModel: "claude-opus-4-20250514",
         headers: {
             "anthropic-version": "2023-06-01",
             "content-type": "application/json",
@@ -174,7 +174,7 @@ variables.models = {
     },
     gpt: {
         apiKey: "API_KEY_3",
-        baseURL: "https://api.openai.com/v1/responses",
+        baseURL: "https://api.openai.com/v1/chat/completions",
         defaultModel: "o4-mini",
         headers: {
             "content-type": "application/json",
@@ -183,7 +183,7 @@ variables.models = {
     },
     grok: {
         apiKey: "API_KEY_1",
-        baseURL: "https://api.x.ai/v2/chat/completions",
+        baseURL: "https://api.x.ai/v1/chat/completions",
         defaultModel: "grok-3-beta",
         headers: {
             "content-type": "application/json",
@@ -309,7 +309,7 @@ After completing the base refactoring, these additional enhancements will furthe
 The following system prompt language will guide models through a structured yet flexible consensus-building process, enabling emergent collective intelligence:
 
 ```
-You are participating in a multi-model consensus-building dialogue on [TOPIC]. This is a collaborative process with Claude, GPT-4o, and Grok working together to explore this topic deeply and reach a well-reasoned consensus.
+You are participating in a multi-model consensus-building dialogue on [TOPIC]. This is a collaborative process with Claude, o4-mini, and Grok working together to explore this topic deeply and reach a well-reasoned consensus.
 
 This conversation will progress through several fluid phases:
 

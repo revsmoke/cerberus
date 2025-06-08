@@ -31,7 +31,7 @@ curl https://api.anthropic.com/v1/messages \
      --header "content-type: application/json" \
      --data \
 '{
-    "model": "claude-4-opus-20250606",
+    "model": "claude-opus-4-20250514",
     "max_tokens": 1024,
     "messages": [
         {"role": "user", "content": "Hello, world"}
@@ -49,7 +49,7 @@ curl https://api.anthropic.com/v1/messages \
      --header "content-type: application/json" \
      --data \
 '{
-    "model": "claude-4-opus-20250606",
+    "model": "claude-opus-4-20250514",
     "max_tokens": 1024,
     "messages": [
         {"role": "user", "content": "Hello, Claude"}
@@ -70,7 +70,7 @@ curl https://api.anthropic.com/v1/messages \
       "text": "Hello!"
     }
   ],
-  "model": "claude-4-opus-20250606",
+  "model": "claude-opus-4-20250514",
   "stop_reason": "end_turn",
   "stop_sequence": null,
   "usage": {
@@ -92,7 +92,7 @@ curl https://api.anthropic.com/v1/messages \
      --header "content-type: application/json" \
      --data \
 '{
-    "model": "claude-4-opus-20250606",
+    "model": "claude-opus-4-20250514",
     "max_tokens": 1024,
     "messages": [
         {"role": "user", "content": "Hello, Claude"},
@@ -138,7 +138,7 @@ curl https://api.anthropic.com/v1/messages \
      --header "content-type: application/json" \
      --data \
 '{
-    "model": "claude-4-opus-20250606",
+    "model": "claude-opus-4-20250514",
     "max_tokens": 1,
     "messages": [
         {"role": "user", "content": "What is latin for Ant? (A) Apoidea, (B) Rhopalocera, (C) Formicidae"},
@@ -160,7 +160,7 @@ curl https://api.anthropic.com/v1/messages \
       "text": "C"
     }
   ],
-  "model": "claude-4-opus-20250606",
+  "model": "claude-opus-4-20250514",
   "stop_reason": "max_tokens",
   "stop_sequence": null,
   "usage": {
@@ -187,7 +187,7 @@ curl https://api.anthropic.com/v1/messages \
      --header "content-type: application/json" \
      --data \
 '{
-    "model": "claude-4-opus-20250606",
+    "model": "claude-opus-4-20250514",
     "max_tokens": 1024,
     "messages": [
         {"role": "user", "content": [
@@ -215,7 +215,7 @@ curl https://api.anthropic.com/v1/messages \
       "text": "This image shows an ant, specifically a close-up view of an ant. The ant is shown in detail, with its distinct head, antennae, and legs clearly visible. The image is focused on capturing the intricate details and features of the ant, likely taken with a macro lens to get an extreme close-up perspective."
     }
   ],
-  "model": "claude-4-opus-20250606",
+  "model": "claude-opus-4-20250514",
   "stop_reason": "end_turn",
   "stop_sequence": null,
   "usage": {
@@ -258,7 +258,7 @@ curl https://api.anthropic.com/v1/messages \
   -H "x-api-key: $ANTHROPIC_API_KEY" \
   -H "anthropic-version: 2023-06-01" \
   -d '{
-    "model": "claude-4-opus-20250606",
+    "model": "claude-opus-4-20250514",
     "max_tokens": 1024,
     "tools": [
       {
@@ -296,7 +296,7 @@ curl https://api.anthropic.com/v1/messages \
      --header "content-type: application/json" \
      --data \
 '{
-    "model": "claude-4-opus-20250606",
+    "model": "claude-opus-4-20250514",
     "max_tokens": 1024,
     "system": "You are a helpful AI assistant that speaks like Shakespeare.",
     "messages": [
@@ -316,7 +316,7 @@ curl https://api.anthropic.com/v1/messages \
      --header "content-type: application/json" \
      --data \
 '{
-    "model": "claude-4-opus-20250606",
+    "model": "claude-opus-4-20250514",
     "max_tokens": 1024,
     "metadata": {
         "user_id": "user_123",
@@ -339,7 +339,7 @@ curl https://api.anthropic.com/v1/messages \
      --header "content-type: application/json" \
      --data \
 '{
-    "model": "claude-4-opus-20250606",
+    "model": "claude-opus-4-20250514",
     "max_tokens": 1024,
     "temperature": 0.7,
     "messages": [
@@ -359,7 +359,7 @@ curl https://api.anthropic.com/v1/messages \
      --header "content-type: application/json" \
      --data \
 '{
-    "model": "claude-4-opus-20250606",
+    "model": "claude-opus-4-20250514",
     "max_tokens": 1024,
     "stream": true,
     "messages": [
@@ -409,7 +409,7 @@ curl -s "https://assets.anthropic.com/m/1cd9d098ac3e6467/original/Claude-3-Model
 
 ```bash
 jq -n --rawfile PDF_BASE64 pdf_base64.txt '{
-    "model": "claude-4-opus-20250606",
+    "model": "claude-opus-4-20250514",
     "max_tokens": 1024,
     "messages": [{
         "role": "user",
@@ -453,7 +453,7 @@ Cache PDFs to improve performance on repeated queries.
 
 ```bash
 jq -n --rawfile PDF_BASE64 pdf_base64.txt '{
-    "model": "claude-4-opus-20250606",
+    "model": "claude-opus-4-20250514",
     "max_tokens": 1024,
     "messages": [{
         "role": "user",

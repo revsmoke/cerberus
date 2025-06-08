@@ -105,7 +105,7 @@
             <div class="conversation" id="grok-conversation"></div>
         </div>
         <div class="model-section" id="claude-section">
-            <h2>Claude 4 Opus</h2>
+            <h2>Claude Opus 4</h2>
             <div class="conversation" id="claude-conversation"></div>
         </div>
         <div class="model-section" id="openai-section">
@@ -131,7 +131,7 @@
             model_provider: 'grok'
         },
         claude: {
-            name: 'claude-4-opus-20250606',
+            name: 'claude-opus-4-20250514',
             api_key: 'API_KEY_2',
             base_url: '/cerberus/AiProxyCFC.cfc',
             endpoint: '',
@@ -162,14 +162,14 @@ FUNCTION CALLING INSTRUCTIONS:
 When you need to query another AI model, use the ask_model function. You can call this function with ONE of the following formats:
 
 1. PREFERRED METHOD - Use proper function calling:
-   ask_model({ query: "What is your opinion on X?", model_name: "claude-4-opus-20250606" })
+   ask_model({ query: "What is your opinion on X?", model_name: "claude-opus-4-20250514" })
 
 2. ALTERNATE METHOD - Use XML tags:
-   <ask_model>{ "query": "What is your question?", "model_name": "claude-4-opus-20250606" }</ask_model>
+   <ask_model>{ "query": "What is your question?", "model_name": "claude-opus-4-20250514" }</ask_model>
 
 Available models are:
 - "grok-3-beta" (yourself)
-- "claude-4-opus-20250606" (Claude)
+- "claude-opus-4-20250514" (Claude)
 - "o4-mini" (GPT)
 
 IMPORTANT RULES TO PREVENT INFINITE LOOPS:
@@ -181,7 +181,7 @@ IMPORTANT RULES TO PREVENT INFINITE LOOPS:
         }],
         claude: [{
             role: 'system',
-            content: `You are Claude 4 Opus, developed by Anthropic. This is a multi-AI chat interface.
+            content: `You are Claude Opus 4, developed by Anthropic. This is a multi-AI chat interface.
 
 IMPORTANT INSTRUCTIONS FOR CLAUDE:
 
@@ -200,7 +200,7 @@ IMPORTANT INSTRUCTIONS FOR CLAUDE:
 
 6. Available models:
    - "grok-3-beta" (Grok)
-   - "claude-4-opus-20250606" (yourself)
+  - "claude-opus-4-20250514" (yourself)
    - "o4-mini" (GPT)
 
 EXAMPLE OF CORRECT BEHAVIOR:
@@ -238,7 +238,7 @@ IMPORTANT INSTRUCTIONS FOR GPT:
 
 6. Available models:
    - "grok-3-beta" (Grok)
-   - "claude-4-opus-20250606" (Claude)
+  - "claude-opus-4-20250514" (Claude)
    - "o4-mini" (yourself)
 
 EXAMPLE OF CORRECT BEHAVIOR:
@@ -265,7 +265,7 @@ EXAMPLE OF CORRECT BEHAVIOR:
             type: 'object',
             properties: {
                 query: { type: 'string', description: 'The question to ask' },
-                model_name: { type: 'string', description: 'The name of the model to ask', enum: ['grok-3-beta', 'claude-4-opus-20250606', 'o4-mini'] }
+                model_name: { type: 'string', description: 'The name of the model to ask', enum: ['grok-3-beta', 'claude-opus-4-20250514', 'o4-mini'] }
             },
             required: ['query', 'model_name']
         }
@@ -568,12 +568,12 @@ EXAMPLE OF CORRECT BEHAVIOR:
             // Create a mapping between model keys and API model names
             const modelNameMapping = {
                 'grok': 'grok-3-beta', 
-                'claude': 'claude-4-opus-20250606', 
+                'claude': 'claude-opus-4-20250514',
                 'openai': 'o4-mini'
             };
             
             // Exclude current model from enum to prevent self-querying
-            const filteredEnum = ['grok-3-beta', 'claude-4-opus-20250606', 'o4-mini'].filter(name => name !== model.name);
+            const filteredEnum = ['grok-3-beta', 'claude-opus-4-20250514', 'o4-mini'].filter(name => name !== model.name);
             const customAskModelFunction = {
                 name: 'ask_model',
                 description: 'Ask a question to another AI model',
@@ -713,7 +713,7 @@ EXAMPLE OF CORRECT BEHAVIOR:
                         // For Claude, make sure to use the "Claude:" prefix so it knows to respond
                         const modelDisplayName = 
                             function_args.model_name === 'grok-3-beta' ? 'Grok' :
-                            function_args.model_name === 'claude-4-opus-20250606' ? 'Claude' :
+                            function_args.model_name === 'claude-opus-4-20250514' ? 'Claude' :
                             function_args.model_name === 'o4-mini' ? 'GPT' : function_args.model_name;
                            
                         // Extract the latest user message to check for recursive patterns
@@ -788,7 +788,7 @@ EXAMPLE OF CORRECT BEHAVIOR:
                 // Add user prompt to force the model to address the response directly
                 const modelDisplayName = 
                     function_args.model_name === 'grok-3-beta' ? 'Grok' :
-                    function_args.model_name === 'claude-4-opus-20250606' ? 'Claude' :
+                    function_args.model_name === 'claude-opus-4-20250514' ? 'Claude' :
                     function_args.model_name === 'o4-mini' ? 'GPT' : function_args.model_name;
                     
                 // Extract the latest user message to check for recursive patterns
@@ -1146,7 +1146,7 @@ You are being queried by ${sourceModelDisplay} through a function call. Keep you
                     function_name: 'ask_model',
                     function_args: {
                         query: "The system couldn't properly parse your function call. Please respond to this generic query instead.",
-                        model_name: "claude-4-opus-20250606" // Default to Claude as the safest option
+                        model_name: "claude-opus-4-20250514" // Default to Claude as the safest option
                     }
                 };
             }
@@ -1206,7 +1206,7 @@ You are being queried by ${sourceModelDisplay} through a function call. Keep you
                                 } else if (modelName.toLowerCase() === 'gpt' || modelName.toLowerCase() === 'openai') {
                                     targetModelName = 'o4-mini';
                                 } else if (modelName.toLowerCase() === 'claude') {
-                                    targetModelName = 'claude-4-opus-20250606';
+                                    targetModelName = 'claude-opus-4-20250514';
                                 }
                                 
                                 if (targetModelName) {
@@ -1239,7 +1239,7 @@ You are being queried by ${sourceModelDisplay} through a function call. Keep you
                                 } else if (modelName.toLowerCase() === 'gpt' || modelName.toLowerCase() === 'openai') {
                                     targetModelName = 'o4-mini';
                                 } else if (modelName.toLowerCase() === 'claude') {
-                                    targetModelName = 'claude-4-opus-20250606';
+                                    targetModelName = 'claude-opus-4-20250514';
                                 }
                                 
                                 if (targetModelName) {
@@ -1301,7 +1301,7 @@ You are being queried by ${sourceModelDisplay} through a function call. Keep you
                                 targetModelName = 'grok-3-beta';
                                 break;
                             } else if (item.text.match(/claude/i)) {
-                                targetModelName = 'claude-4-opus-20250606';
+                                targetModelName = 'claude-opus-4-20250514';
                                 break;
                             }
                         }
